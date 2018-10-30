@@ -1,22 +1,41 @@
 import React, { Component } from 'react';
-import logo from './ga.png';
-import Account from './Account';
 
-class App extends Component {
+
+class Account extends Component {
+  constructor(){
+    super()
+    this state = {
+      balance: 0
+    }
+    handleDepositClick(e){
+    const amount = ParseInt(this.inputBox.value);
+    const updatedAmount = ParseInt(this.state.balance + amount);
+    this.setState({
+      balance: updatedAmount
+    })
+    }
+    handleWithdrawClick(e){
+    const updatedWithdraw = this.state.balance - amount;
+    this.setState({
+      balance: updatedWithdraw
+    })
+    }
+  }
   render() {
+        let balance = 'balance';
+        if(this.state.balance === 0) {
+          balance += 'zero';
+        }
     return (
-      <div id="content">
-        <div id="nav">
-          <div id="logo"><img src={logo} alt="General Assembly logo" /></div>
-          <div id="title">Bank of GA</div>
-        </div>
-        <Account />
-        <Account />
-        <div className="clear"></div>
+      <div className="account">
+        <h2>{this.props.name}</h2>
+        <div className={balance}>$0</div>
+        <input type="text" placeholder="enter an amount" ref={(input) => this.inputBox = input}/>
+        <input type="button" value="Deposit" />
+        <input type="button" value="Withdraw" />
       </div>
-    );
+    )
   }
 }
 
-export default App;
-
+export default Account;
